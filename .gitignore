@@ -31,11 +31,11 @@ Thumbs.db
 # Build Artifacts
 
 .gradle/
-build
-runtime/
-target/
-out/
-bin
+/build
+/runtime/
+/target/
+/out/
+/bin
 dependency-reduced-pom.xml
 
 # Eclipse Project Files
