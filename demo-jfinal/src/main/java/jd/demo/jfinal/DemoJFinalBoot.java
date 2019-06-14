@@ -28,7 +28,7 @@ public class DemoJFinalBoot extends JFinalConfig{
 	@Override
 	public void configRoute(Routes me) {
 		me.setBaseViewPath("/demo");
-		me.add("/hello",GreetingController.class);
+		me.add("hello",GreetingController.class);
 		
 	}
 
