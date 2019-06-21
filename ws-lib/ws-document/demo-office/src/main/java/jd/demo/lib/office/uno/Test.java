@@ -5,10 +5,15 @@ import com.artofsolving.jodconverter.*;
 import com.artofsolving.jodconverter.openoffice.connection.OpenOfficeConnection;
 import com.artofsolving.jodconverter.openoffice.connection.SocketOpenOfficeConnection;
 import com.artofsolving.jodconverter.openoffice.converter.OpenOfficeDocumentConverter;
+import jd.demo.lib.office.uno.src.ProcessPoolOfficeManager;
 import org.apache.commons.io.IOUtils;
+import org.artofsolving.jodconverter.process.LinuxProcessManager;
+import org.artofsolving.jodconverter.process.ProcessQuery;
 
 import java.io.*;
 import java.net.ConnectException;
+import java.net.Socket;
+import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -34,18 +39,11 @@ public class Test {
     private static final String UNO_LIS_CMD = "soffice --headless --accept=\"socket,host=127.0.0.1,port="+UNO_PORT+";urp;\" --nofirststartwizard &";
 
     static{
-        //try {
-            new Thread(() -> {
-                try {
-                    executeCommand(UNO_LIS_CMD.split(" "));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }).start();
-            //startLibreOfficeUnoServer();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        /*try {
+            checkAndStart();
+        } catch (IOException|InterruptedException e) {
+            e.printStackTrace();
+        }*/
     }
 
 
@@ -60,42 +58,61 @@ public class Test {
             file = args[1];
         }
 
-        convertThroughUNO(new File(dir, file + ".docx"), new File(dir, file+".pdf"));
+        System.out.println(new Socket("api1.dqprism.com",8100).isConnected());
+        new File(dir).listFiles((f)->{
+            if(f.getName().endsWith(".pdf")){
+                f.delete();
+            }
+            return true ;
+        });
+        //convertThroughUNO(new File(dir, file + ".docx"), new File(dir, file+".pdf"));
+        int cnt = 20 ;
+        while(--cnt>0) UnoOfficeUtil.convertToPDF(new File(dir, cnt + ".docx"), new File(dir, cnt+".pdf"));
         System.in.read();
     }
 
-    public static Process startLibreOfficeUnoServer() throws IOException {
-        Runtime r = Runtime.getRuntime();
-        System.out.println(System.currentTimeMillis() + "|execute: " + UNO_LIS_CMD);
+    public static synchronized void checkAndStart() throws IOException, InterruptedException {
+        ProcessQuery processQuery = new ProcessQuery("soffice", "socket,host=127.0.0.1,port="+UNO_PORT);
+        long existingPid = new LinuxProcessManager().findPid(processQuery);
+        if(existingPid <= 0){
+            System.out.println("检测到无office服务，开始启动");
+            startServer();
+        }else{
+            System.out.println("office服务pid=" + existingPid + ",监听端口="+UNO_PORT);
+        }
+    }
+    public static synchronized Process startServer() throws IOException, InterruptedException {
+        ArrayList command = new ArrayList();
+        //File executable = OfficeUtils.getOfficeExecutable(this.officeHome);
 
-        executeCommand("ps -aA |grep soffice".split(" "));
-        // 启动soffice监听端口
-        final Process process = r.exec(UNO_LIS_CMD);
-        System.out.println(System.currentTimeMillis() + "|alive: " +process.isAlive());
+        command.add("soffice");
+        command.add("--accept=socket,host=127.0.0.1,port=" +UNO_PORT+ ";urp;");
+        //command.add("-env:UserInstallation=" + OfficeUtils.toUrl(this.instanceProfileDir));
+        command.add("--headless");
+        command.add("--nodefault");
+        command.add("--nofirststartwizard");
+        command.add("--nolockcheck");
+        command.add("--nologo");
+        command.add("--norestore");
+        ProcessBuilder processBuilder = new ProcessBuilder(command);
+
+        System.out.println("starting process with acceptString socket,host=127.0.0.1,port=" +UNO_PORT);
+        Process process = processBuilder.start();
+            /*int pid = this.processManager.findPid(processQuery);
+            if(this.pid == -2L) {
+                throw new IllegalStateException(String.format("process with acceptString \'%s\' started but its pid could not be found", new Object[]{this.unoUrl.getAcceptString()}));
+            } else {
+                this.logger.info("started process" + (this.pid != -1L?"; pid = " + this.pid:""));
+            }*/
+        process.waitFor(3,TimeUnit.SECONDS);
         // JVM停止时自动结束线程
-        r.addShutdownHook(new Thread(()->{
+        Runtime.getRuntime().addShutdownHook(new Thread(()->{
             System.out.println(System.currentTimeMillis() + "|jvm shutdown," +  (process.isAlive()?" to close":"dead") + " processs : " + UNO_LIS_CMD  + "");
             if(process.isAlive()) process.destroy();
         }));
-        System.out.println(System.currentTimeMillis() + "|alive: " +process.isAlive());
-        // 等待监听器完全启动起来
-        new Thread(()->{
-        try {
-            process.waitFor();
-            //TimeUnit.SECONDS.sleep(10);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }}).start();
-
-        /*System.out.println(System.currentTimeMillis() + "|alive: " +process.isAlive());
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println(System.currentTimeMillis() + "|alive: " +process.isAlive());*/
         return process;
     }
+
 
     public static void convertThroughUNO(File inputFile, File outputFile) {
         System.out.format(System.currentTimeMillis() + "|convert %s --> %s\n", inputFile, outputFile);
@@ -106,7 +123,7 @@ public class Test {
             }catch (ConnectException ce){
                 System.out.println("openoffice uno 连接" + UNO_PORT + " 端口失败，使用命令启动");
                 // 如果连接失败
-                startLibreOfficeUnoServer();
+                startServer();
                 connection.connect();
             }
             OpenOfficeDocumentConverter converter = new OpenOfficeDocumentConverter(connection,DOC_FMT_REGISTRY);

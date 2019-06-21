@@ -1,3 +1,4 @@
+/*
 package jd.demo.lib.office.uno;
 
 import com.artofsolving.jodconverter.DefaultDocumentFormatRegistry;
@@ -25,12 +26,16 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import static sun.plugin.javascript.navig.JSType.Document;
+
+*/
 /**
  * Created by moseeker on 2018/11/6.
- */
+ *//*
+
 public class OfficeUtils {
 
-    static Logger logger = LoggerFactory.getLogger(com.moseeker.profile.utils.OfficeUtils.class);
+    static Logger logger = LoggerFactory.getLogger(OfficeUtils.class);
 
     private static final String ERROR_PDF = "Evaluation Only. Created with Aspose.Words. Copyright 2003-2015 Aspose Pty Ltd.";
 
@@ -52,13 +57,15 @@ public class OfficeUtils {
         //logger.info("OfficeUtils init --- current user: "+ executeCommand("whoami"));
     }
 
-    /**
+    */
+/**
      * word转pdf
      *
      * @param sourceFileName 源文件路径名称
      * @param targetFileName 目标文件路径名称
      * @throws Exception
-     */
+     *//*
+
     public static int Word2Pdf(String sourceFileName, String targetFileName) {
 
         //若未获取到许可证书，返回
@@ -90,7 +97,8 @@ public class OfficeUtils {
                     errorPdf.delete();
                 }
                 convertThroughUNO(new File(sourceFileName),targetFile);
-                /*
+                */
+/*
                 //只传入文件夹路径
                 String outdir = targetFileName.substring(0,targetFileName.lastIndexOf("/"));
                 String command = COMMAND.replace("$outdir$",outdir).replace("$src$", sourceFileName);
@@ -102,7 +110,8 @@ public class OfficeUtils {
                     logger.info("The pdf profile has been created at {}",output);
                 //}
 
-                */
+                *//*
+
             }
         }catch (Exception e){
             logger.error(e.getMessage());
@@ -114,11 +123,13 @@ public class OfficeUtils {
         }
     }
 
-    /**
+    */
+/**
      * 校验许可证 无许可证会出现水印
      *
      * @return 是否有许可证
-     */
+     *//*
+
     private static boolean isLicense() {
         boolean isLicense = false;
         try(InputStream is = com.moseeker.common.util.OfficeUtils.class.getClassLoader().getResourceAsStream("license.xml")) {
@@ -131,11 +142,13 @@ public class OfficeUtils {
         return isLicense;
     }
 
-    /*
+    */
+/*
      * 获取pdf的内容
      *
      * @return 用来检验生成的pdf是否有问题
-     * */
+     * *//*
+
     public static String getTextFromPdf(String pdfFilePath) throws Exception{
         String result = null;
         FileInputStream is = null;
@@ -162,11 +175,14 @@ public class OfficeUtils {
         return result;
     }
 
-    /*
+    */
+/*
      * 执行libreoffice命令生成pdf文件
      *
      * @return
      * *//*
+*/
+/*
     public static String executeCommand(String command) {
         StringBuffer output = new StringBuffer();
         Process p;
@@ -180,14 +196,22 @@ public class OfficeUtils {
             inputStreamReader = new InputStreamReader(p.getInputStream(), "UTF-8");
             reader = new BufferedReader(inputStreamReader);
 
-            *//*while((data = inputStreamReader.read())!=-1){
+            *//*
+*/
+/*while((data = inputStreamReader.read())!=-1){
                 System.out.println((byte)data);
             }*//*
+*/
+/*
             InputStream isErr = p.getErrorStream();
-            *//*data =0;
+            *//*
+*/
+/*data =0;
             while((data = isErr.read())!=-1){
                 System.out.println((byte)data);
             }*//*
+*/
+/*
             String errorMsg = IOUtils.toString(p.getErrorStream());
             if(StringUtils.isNotBlank(errorMsg)){
                 logger.error("execute command {} error ： {}",command,errorMsg);
@@ -206,14 +230,17 @@ public class OfficeUtils {
         logger.info(output.toString());
         return output.toString();
 
-    }*/
+    }*//*
+
 
     public static String executeCommand(String command) {
         StringBuffer output = new StringBuffer();
         ExecutorService pool = Executors.newFixedThreadPool(3);
-        /*
+        */
+/*
         ProcessBuilder pb = new ProcessBuilder();
-        pb.redirectError();*/
+        pb.redirectError();*//*
+
         Process process = null ;
         try{
             ProcessBuilder pb = new ProcessBuilder();
@@ -257,11 +284,15 @@ public class OfficeUtils {
             pool.submit(()->{
                 try {
                     logger.info("process wait");
-                    /*int exitValue = */p.waitFor(5, TimeUnit.SECONDS);
+                    */
+/*int exitValue = *//*
+p.waitFor(5, TimeUnit.SECONDS);
                     logger.info("process finish");
-                    /*if(exitValue != 0){
+                    */
+/*if(exitValue != 0){
                     logger.error("命令{}错误退出码：{}",command,exitValue);
-                }*/
+                }*//*
+
                 } catch (InterruptedException e) {
                     //e.printStackTrace();
                 }finally {
@@ -275,9 +306,11 @@ public class OfficeUtils {
             logger.error("executeCommand " + command +"error ",e);
             return " error" ;
         }finally {
-            /*if(process != null){
+            */
+/*if(process != null){
                 process.destroyForcibly();
-            }*/
+            }*//*
+
             pool.shutdown();
         }
     }
@@ -320,3 +353,4 @@ public class OfficeUtils {
 }
 
 
+*/

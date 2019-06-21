@@ -1,10 +1,11 @@
+/*
 package jd.demo.lib.office.uno;
 
 import com.artofsolving.jodconverter.DocumentConverter;
 import com.artofsolving.jodconverter.openoffice.connection.OpenOfficeConnection;
 import com.artofsolving.jodconverter.openoffice.connection.SocketOpenOfficeConnection;
 import com.artofsolving.jodconverter.openoffice.converter.OpenOfficeDocumentConverter;
-import com.moseeker.profile.utils.OfficeUtils;
+
 
 import java.io.*;
 import java.util.concurrent.TimeUnit;
@@ -37,7 +38,8 @@ public class A {
         }
 
         OfficeUtils.executeCommand(UNO_LIS_CMD);
-        /*
+        */
+/*
         ExecutorService pool = Executors.newFixedThreadPool(20);
         //System.out.println(executeCommand("whoami"));
         new File(dir).list((d,name)->{
@@ -48,7 +50,8 @@ public class A {
             return true ;
         });
         pool.shutdown();
-        */
+        *//*
+
         //int rst = Word2Pdf(new File(dir).getAbsoluteFile(),file);
         OfficeUtils.convertThroughUNO(new File(dir,file+".docx"),new File(dir,file+".pdf"));
         //System.out.println(executeCommand("ls " + dir + " | grep " + file));
@@ -91,11 +94,13 @@ public class A {
         return 1;
     }
 
-    /*
+    */
+/*
      * 执行libreoffice命令生成pdf文件
      *
      * @return
-     * */
+     * *//*
+
     public static String executeCommand(String ... command) throws IOException {
         StringBuffer output = new StringBuffer();
         Process p;
@@ -143,11 +148,13 @@ public class A {
 
     }
 
-    /*
+    */
+/*
      * 执行libreoffice命令生成pdf文件
      *
      * @return
-     * */
+     * *//*
+
     public static String executeCommand(String command) throws IOException {
         StringBuffer output = new StringBuffer();
         Process p;
@@ -165,10 +172,12 @@ public class A {
             inputStreamReader = new InputStreamReader(p.getInputStream(), "UTF-8");
             reader = new BufferedReader(inputStreamReader);
 
-            /*while((data = inputStreamReader.read())!=-1){
+            */
+/*while((data = inputStreamReader.read())!=-1){
                 obaos.write(data);
                 //System.out.println((byte)data);
-            }*/
+            }*//*
+
             //System.out.println(obaos);
 
             InputStream isErr = p.getErrorStream();
@@ -195,3 +204,4 @@ public class A {
 
     }
 }
+*/
