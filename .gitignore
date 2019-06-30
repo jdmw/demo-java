@@ -36,9 +36,11 @@ Thumbs.db
 /target/
 /out/
 /bin
+/.idea/
 dependency-reduced-pom.xml
 
 # Eclipse Project Files
+
 
 .classpath
 .project
