@@ -1,0 +1,29 @@
+package jd.demo.springboot.cfg;
+
+import java.util.List;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
+
+import lombok.Data;
+
+@EnableAutoConfiguration 
+@PropertySource(value="classpath:cfg/cfg/cfg.properties",encoding="utf-8")
+@ConfigurationProperties(prefix="cfg")
+@Data
+public class DemoConfig {
+
+	@value("${cfg.name}")
+	private String name ;
+	private List<String> hobbes ;
+	private String description ;
+	
+	
+	public static void main(String[] args) {
+		SpringApplication.run(DemoConfig.class, args);
+
+	}
+
+}

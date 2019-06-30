@@ -1,0 +1,48 @@
+package jd.demo.springboot.cfg;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
+
+import lombok.Data;
+
+
+
+@SpringBootApplication
+//@EnableAutoConfiguration 
+@PropertySource(value="classpath:cfg/cfg/demo_config.properties",encoding="utf-8")
+public class DemoConfig {
+
+	
+	@Component
+	@ConfigurationProperties(prefix="person")
+	@Data
+	static class Persion {
+		String cd ;
+		String name ;
+		List<String> hobbes ;
+		
+		@Value("${person.desc}")
+		String description ;
+
+		@Override
+		public String toString() {
+			return "Persion [cd=" + cd + ", name=" + name + ", hobbes=" + hobbes + ", description=" + description + "]";
+		}
+	}
+	
+	
+	public static void main(String[] args) {
+		ConfigurableApplicationContext ctx = SpringApplication.run(DemoConfig.class, args);
+		DemoConfig cb = ctx.getBean(DemoConfig.class);
+		System.out.println(cb);
+		
+	}
+
+}

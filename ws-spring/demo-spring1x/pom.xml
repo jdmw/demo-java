@@ -1,0 +1,25 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>jd.demo</groupId>
+  <artifactId>demo-spring-basic</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <dependencies>
+   <!-- https://mvnrepository.com/artifact/spring/spring -->
+	<dependency>
+	    <groupId>spring</groupId>
+	    <artifactId>spring-1x</artifactId>
+	    <version>1.0.2</version>
+	</dependency>
+	<dependency>
+		<groupId>jd.demo</groupId>
+		<artifactId>jd-demo-example</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>jd</groupId>
+		<artifactId>jd-util</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+  </dependencies>
+</project>

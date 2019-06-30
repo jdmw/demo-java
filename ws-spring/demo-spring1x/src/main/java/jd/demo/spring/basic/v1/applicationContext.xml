@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+  
+  <!-- bean demo -->
+  <bean id="apple" class="jd.demo.example.shop.Goods">
+    <property name="name"><value>apple</value></property>
+    <property name="price" ><value>apple</value></property>
+  </bean>
+  
+  <bean id="appleBox" class="jd.demo.example.shop.pkg.Box">
+    <property name="goods"><ref bean="apple" /></property>
+  </bean>
+
+  <!-- static factory -->
+  <bean id="packagedCommodity" class="jd.demo.example.shop.pkg.Packager"  factory-method="box" >
+    <!-- <factory-bean><bean class="" /></factory-bean> -->
+    <constructor-arg><ref bean="apple"/></constructor-arg>
+  </bean> 
+
+  <!-- instance factory -->
+ <!--  <bean id="boxedCommodity">
+  	<factory-method>box</factory-method>
+    <factory-bean><bean class="jd.demo.example.shop.pkg.Boxer" /></factory-bean>
+    <constructor-arg><ref bean="apple"/></constructor-arg>
+  </bean> -->
+</beans>

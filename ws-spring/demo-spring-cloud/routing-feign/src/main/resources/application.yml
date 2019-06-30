@@ -1,0 +1,18 @@
+server:
+  port: 9901
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9700/eureka/
+
+client: netflix-eureka-client
+
+spring:
+  application:
+    name: routing-feign
+
+feign:
+  hystrix:
+    enable: true

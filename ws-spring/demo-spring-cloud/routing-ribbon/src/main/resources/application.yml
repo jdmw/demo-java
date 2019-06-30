@@ -1,0 +1,26 @@
+server:
+  port: 9900
+
+
+eureka:
+  #  instance:
+  #    hostname: localhost
+  client:
+    #    registerWithEureka: false
+    #    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://localhost:9700/eureka/
+
+clientUrl: http://netflix-eureka-client
+
+spring:
+  application:
+    name: routing-ribbon
+
+netflix-eureka-client:
+  ribbon:
+    eureka:
+      enabled: false
+    listOfServers: localhost:9801,localhost:9802,localhost:9803
+    ServerListRefreshInterval: 15000
+

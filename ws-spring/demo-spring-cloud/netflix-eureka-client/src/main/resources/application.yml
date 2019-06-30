@@ -1,0 +1,18 @@
+server:
+  port: 9801
+
+eureka:
+  #  instance:
+  #    hostname: localhost
+  client:
+    #    registerWithEureka: false
+    #    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://localhost:9700/eureka/
+
+spring:
+  application:
+    name: netflix-eureka-client
+
+
+

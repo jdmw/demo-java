@@ -1,0 +1,28 @@
+server:
+  port: 9803
+
+spring:
+  application:
+    name: netflix-hystrix
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9700/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"
+
+turbine:
+  app-config: netflix-eureka-client
+  aggregator:
+    clusterConfig: default
+  clusterNameExpression: new String("default")
+  combine-host: true
+  instanceUrlSuffix:
+    default: actuator/hystrix.stream
