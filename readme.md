@@ -36,8 +36,7 @@ demo-hadoop | apache| hadoop
 ### 5. ws-spring
 
 ### 6 ws-study-javadv java高级学习
-#### 6.1 163study 
-
+#### 6.1 163study
 
 ### 7. ws-lib 常用组件
 #### 7.1 ws-lib-framework 框架 | demo-jfinal
@@ -56,10 +55,10 @@ module | orgnation | decription
 ---|---|---
 demo-office|apache | office文件操作（使用openoffice等）
 
-#### 7.5 ws-lib-rpc 远程调用|
+#### 7.5 ws-lib-serialization 序列化（avro、protobuf、hessian、thrift）
 module | orgnation | decription
 ---|---|---
-thrift|apache | 跨语言rpc框架
+thrift|apache | 跨语言序列化框架
 
 
 #### 7.6 ws-lib-gencode 代码生成
@@ -68,16 +67,13 @@ module | orgnation | decription
 lombok| | 使用javaagent自动生成getter、setter、toString()、equals()
 
 
-#### 7.5 ws-lib-utils 
+#### 7.5 ws-lib-utils
 module | orgnation | decription
 ---|---|---
 common-utils|apache | 使用最广泛的util
 
-
 ### 8 ws-jvm-langs jvm平台衍生语言
 
   clojure
-  
+
   kotlin
-  
-  
