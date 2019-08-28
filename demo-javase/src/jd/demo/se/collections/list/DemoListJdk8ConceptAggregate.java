@@ -51,11 +51,16 @@ public class DemoListJdk8ConceptAggregate {
 		out.println("averageAageByGender" + averageAageByGender);
 	}
 
-	
+	public static void demoCollect(){
+		List<String> nameList = roster.stream().map(SPerson::getName).collect(Collectors.toList());
+		System.out.println(nameList);
+	}
+
 	public static void main(String[] args) {
 		
 		demoAggregate();
 		demoReduce();
+		demoCollect();
 		
 	}
 

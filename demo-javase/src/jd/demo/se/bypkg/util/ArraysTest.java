@@ -1,9 +1,5 @@
 package jd.demo.se.bypkg.util;
 
-import java.util.Arrays;
-
-import jd.util.lang.Console;
-
 public class ArraysTest {
 /*
 	@BeforeAll
