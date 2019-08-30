@@ -8,6 +8,7 @@ demo-common |  demo共同继承
 demo-communication | 通信相关demo，包括TCP/IP通信等
 demo-designpattern | 设计模式Demo
 demo-javase | javase Demo
+demo-javase12 | javase 12 Demo
 demo-javaee | javaee Demo
 demo-jvm | jvm探索
 
@@ -50,6 +51,7 @@ module | orgnation | decription
 [demo-sensorsdata](https://www.sensorsdata.cn/school/) | 商用软件| 神策：数据分析
 
 #### 7.3 ws-lib-log 日志
+
 #### 7.4 ws-lib-document	文档处理
 module | orgnation | decription
 ---|---|---
@@ -67,12 +69,20 @@ module | orgnation | decription
 lombok| | 使用javaagent自动生成getter、setter、toString()、equals()
 
 
-#### 7.5 ws-lib-utils
+
+#### 7.5 ws-lib-net
+module | orgnation | decription
+---|---|---
+httpcomponents |apache+spring | http client,http restTemplate
+
+#### 7.6 ws-lib-utils
 module | orgnation | decription
 ---|---|---
 common-utils|apache | 使用最广泛的util
 
-### 8 ws-jvm-langs jvm平台衍生语言
+
+
+### 9 ws-jvm-langs jvm平台衍生语言
 
   clojure
 
