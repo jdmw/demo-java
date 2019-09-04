@@ -1,63 +1,118 @@
 package jd.demo.http.apache.httpcomponets;
 
-import com.google.gson.Gson;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import java.io.File;
-import java.io.IOException;
-
+import jodd.util.StringUtil;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.entity.mime.content.*;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 
 public class DemoMultipartFormEntity {
 
-    public static void main(String[] args) throws IOException {
-        if (args.length != 1)  {
-            System.out.println("File path not given");
-            System.exit(1);
-        }
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        try {
-            HttpPost httppost = new HttpPost("http://localhost:8080" +
-                    "/servlets-examples/servlet/RequestInfoExample");
+    private static final File FILE= new File("/Users/huangxia/Downloads/docx/2.docx") ;
+    private static final String COMPANY_ID = "4" ;
 
-            FileBody bin = new FileBody(new File(args[0]));
-            StringBody comment = new StringBody("A binary file of some kind", ContentType.TEXT_PLAIN);
+    public static String postMultipartForm(String url,Map<String,Object> parameter,ContentType contentType, String fileName) throws IOException{
+        try(CloseableHttpClient httpclient = HttpClients.createDefault()) {
+            HttpPost httppost = new HttpPost(url);
 
-            HttpEntity reqEntity = MultipartEntityBuilder.create()
-                    .addPart("bin", bin)
-                    .addPart("comment", comment)
-                    .build();
+            if(parameter != null && !parameter.isEmpty()){
+                if( fileName == null){
+                    for(Map.Entry<String,Object> entry : parameter.entrySet()){
+                        if ( entry.getKey().toUpperCase().equals("FILENAME") && entry.getValue() instanceof String){
+                            fileName = entry.getValue().toString();
+                        }
+                    }
+                }
+                String filename = fileName;
+                MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+                parameter.forEach((name,value)->{
+                    if( value != null){
+                        ContentBody contentBody;
+                        if( value instanceof String){
+                            contentBody = new StringBody( value.toString(), ContentType.TEXT_PLAIN);
+                        }else if( value instanceof File) {
+                            if( contentType != null && StringUtil.isNotBlank(filename)){
+                                contentBody = new FileBody((File) value,contentType,filename);
+                            }else{
+                                contentBody = new FileBody((File) value);
+                            }
+                        }else if( value instanceof byte[]) {
+                            if( filename == null) {
+                                throw new RuntimeException("filename不可为空" );
+                            }
+                            if( contentType != null && StringUtil.isNotBlank(filename)){
+                                contentBody = new ByteArrayBody((byte[]) value,contentType,filename);
+                            }else{
+                                contentBody = new ByteArrayBody((byte[]) value,filename);
+                            }
+                        }else if( value instanceof InputStream) {
+                            if( contentType != null){
+                                contentBody = new InputStreamBody((InputStream) value,contentType,filename);
+                            }else{
+                                contentBody = new InputStreamBody((InputStream) value,filename);
+                            }
+                        }else if( value instanceof MultipartFile) {
+                            MultipartFile multipartFile = (MultipartFile)value;
+                            byte[] bytes ;
+                            try {
+                                bytes = multipartFile.getBytes();
+                            } catch (IOException e) {
+                                throw new RuntimeException("上传文件读取异常",e);
+                            }
+                            contentBody = new ByteArrayBody(bytes,multipartFile.getContentType(),multipartFile.getOriginalFilename());
+                        }else if( value instanceof ContentBody) {
+                            contentBody = (ContentBody)value ;
+                        }else {
+                            // 其他参数统统转化为String
+                            contentBody = new StringBody( value.toString(), ContentType.TEXT_PLAIN);
+                        }
+                        builder.addPart(name,contentBody);
+                    }
+                });
 
-
-            httppost.setEntity(reqEntity);
+                HttpEntity reqEntity = builder.build();
+                httppost.setEntity(reqEntity);
+            }
 
             System.out.println("executing request " + httppost.getRequestLine());
-            CloseableHttpResponse response = httpclient.execute(httppost);
-            try {
+            try(CloseableHttpResponse response = httpclient.execute(httppost)) {
                 System.out.println("----------------------------------------");
                 System.out.println(response.getStatusLine());
                 HttpEntity resEntity = response.getEntity();
                 if (resEntity != null) {
                     System.out.println("Response content length: " + resEntity.getContentLength());
                 }
-                EntityUtils.consume(resEntity);
-            } finally {
-                response.close();
+                try(InputStream is = resEntity.getContent()){
+                    return IOUtils.toString(is,"UTF-8");
+                }
             }
-        } finally {
-            httpclient.close();
         }
+    }
+
+    public static void main(String[] args) throws IOException {
+        byte[] bytes = "\211PNG\r\n\032\n".getBytes();
+        String url = "http://localhost:11027/v4/profile/upload/parser";
+        Map<String, Object> parameter = new LinkedHashMap<>();
+        //parameter.put("file", FILE);
+        //parameter.put("file", new FileInputStream(FILE));
+        parameter.put("file", IOUtils.toByteArray(new FileInputStream(FILE)));
+        parameter.put("filename", FILE.getName());
+        parameter.put("companyId", COMPANY_ID);
+        System.out.println(postMultipartForm(url, parameter,ContentType.DEFAULT_BINARY,FILE.getName()));
     }
     /*String url = "";
     HttpPost httpPost = new HttpPost(url);
