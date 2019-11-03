@@ -56,6 +56,7 @@ module | orgnation | decription
 module | orgnation | decription
 ---|---|---
 demo-office|apache | office文件操作（使用openoffice等）
+demo-lib-file||file operations
 
 #### 7.5 ws-lib-serialization 序列化（avro、protobuf、hessian、thrift）
 module | orgnation | decription
