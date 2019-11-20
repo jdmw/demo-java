@@ -1,0 +1,4 @@
+```sequence
+A->B: how are you?
+B-->>A: fine.
+```

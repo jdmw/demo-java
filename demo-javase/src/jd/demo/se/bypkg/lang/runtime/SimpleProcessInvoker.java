@@ -11,8 +11,6 @@ public class SimpleProcessInvoker {
 	
 	private static Runtime RUNTIME = Runtime.getRuntime();
 	static {
-		// ÌáÊ¾JVM½áÊø
-		// ÌáÊ¾½áÊøJVM
 		RUNTIME.addShutdownHook(new Thread(()->{
 			Console.tpln("JVM stop");
 		}));
@@ -69,7 +67,7 @@ public class SimpleProcessInvoker {
 
 	/**
 	 * run winver output:
-	 * when the window is show £¬ jvm is waitting £¨at p¡£waitFor()£©,the process is alive 
+	 * when the window is show ï¿½ï¿½ jvm is waitting ï¿½ï¿½at pï¿½ï¿½waitFor()ï¿½ï¿½,the process is alive 
 	 * till i I processed confirm button,then console output: finish command winver,proccess alive: false
 	 */
 	public static Process simpleRunWaitFor(String command) throws IOException, InterruptedException {
@@ -83,7 +81,7 @@ public class SimpleProcessInvoker {
 	
 	/**
 	 * run winver output:
-	 * when the window is show £¬ jvm is waitting £¨at p¡£waitFor()£©,the process is alive 
+	 * when the window is show ï¿½ï¿½ jvm is waitting ï¿½ï¿½at pï¿½ï¿½waitFor()ï¿½ï¿½,the process is alive 
 	 * till i I processed confirm button,then console output: finish command winver,proccess alive: false
 	 */
 	public static Process simpleRunWaitForTime(String command) throws IOException, InterruptedException {

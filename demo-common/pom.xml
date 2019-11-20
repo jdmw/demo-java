@@ -6,7 +6,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<modules>
 		<module>demo-examble</module>
-	</modules>
+        <module>../ws-ds/demo-mq-rabbitmq/demo-mq-rabbitmq-official</module>
+    </modules>
 	<packaging>pom</packaging>
 
 	<dependencies>

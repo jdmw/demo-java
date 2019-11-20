@@ -13,5 +13,18 @@
     <groupId>jd.demo</groupId>
     <artifactId>demo-javase12</artifactId>
 
+    <build>
+        <sourceDirectory>src</sourceDirectory>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>1.12</source>
+                    <target>1.12</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

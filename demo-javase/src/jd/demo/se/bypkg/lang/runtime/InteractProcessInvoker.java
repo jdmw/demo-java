@@ -23,8 +23,6 @@ public class InteractProcessInvoker {
 
 	private static Runtime RUNTIME = Runtime.getRuntime();
 	static {
-		// 提示JVM结束
-		// 提示结束JVM
 		RUNTIME.addShutdownHook(new Thread(()->{
 			Console.tpln("JVM stop");
 		}));
