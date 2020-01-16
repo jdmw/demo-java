@@ -14,9 +14,9 @@ import static jd.demo.ds.mq.rabbitmq.common.DemoRabbitMqCommon.getFactory;
 
 public class Hello {
 
-    private final static int PRODUCER_NUM = 8 ;
-    private final static int CONSUMER_NUM = 9 ;
-    private final static int PACKAGE_NUM = 999 ;
+    private final static int PRODUCER_NUM = 1 ;
+    private final static int CONSUMER_NUM = 1 ;
+    private final static int PACKAGE_NUM = 1 ;
 
     protected final static String QUEUE_NAME = "hello" ;
     protected final static String MSG_FMT = "Hello-%d-%0" + String.valueOf(PACKAGE_NUM).length() +"d" ;
