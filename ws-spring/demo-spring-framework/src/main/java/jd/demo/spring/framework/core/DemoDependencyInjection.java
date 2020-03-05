@@ -1,6 +1,6 @@
 package jd.demo.spring.framework.core;
 
-import jd.demo.example.common.thingsbysubject.biology.creature.animal.fish.IFish;
+import jd.demo.example.common.thingsbysubject.biology.creature.animal.Animals;
 import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,11 +23,11 @@ public class DemoDependencyInjection implements CommandLineRunner {
 
 
     @Autowired
-    private IFish fish ;
+    private Animals.IFish fish ;
 
     @Autowired
     @Qualifier("tuna")
-    private IFish tuna ;
+    private Animals.IFish tuna ;
 
     public static void main(String[] args) {
         SpringApplication.run(DemoDependencyInjection.class, args);

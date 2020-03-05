@@ -1,12 +1,8 @@
 package jd.demo.spring.framework.core.ioc;
 
-import jd.demo.example.common.thingsbysubject.biology.creature.animal.fish.IFish;
-import jd.demo.example.common.thingsbysubject.biology.creature.animal.fish.Sole;
-import jd.demo.example.common.thingsbysubject.biology.creature.animal.fish.Tuna;
-import jd.demo.example.common.thingsbysubject.biology.creature.animal.mammal.Calf;
-import jd.demo.example.common.thingsbysubject.biology.creature.animal.mammal.Cat;
-import jd.demo.example.common.thingsbysubject.biology.creature.animal.mammal.Dog;
-import jd.demo.example.common.thingsbysubject.biology.creature.animal.mammal.Pig;
+import static jd.demo.example.common.thingsbysubject.biology.creature.animal.Animals.Mammals.*;
+
+import jd.demo.example.common.thingsbysubject.biology.creature.animal.Animals;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -39,13 +35,13 @@ public class Beans {
 
     @Primary
     @Bean
-    public IFish Sole(){
-        return new Sole();
+    public Animals.IFish Sole(){
+        return new Animals.Fishes.Sole();
     }
 
     @Bean(name = "tuna")
-    public IFish Tuna(){
-        return new Tuna();
+    public Animals.IFish Tuna(){
+        return new Animals.Fishes.Tuna();
     }
 
 

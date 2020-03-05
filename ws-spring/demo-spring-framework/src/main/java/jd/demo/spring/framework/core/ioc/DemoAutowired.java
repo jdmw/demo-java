@@ -1,10 +1,8 @@
 package jd.demo.spring.framework.core.ioc;
 
 
+import jd.demo.example.common.thingsbysubject.biology.creature.animal.Animals;
 import jd.demo.example.common.thingsbysubject.biology.creature.animal.IAnimal;
-import jd.demo.example.common.thingsbysubject.biology.creature.animal.mammal.Cat;
-import jd.demo.example.common.thingsbysubject.biology.creature.animal.mammal.Dog;
-import jd.demo.example.common.thingsbysubject.biology.creature.animal.mammal.Pig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
@@ -19,9 +17,9 @@ import java.util.Set;
 public class DemoAutowired implements CommandLineRunner {
 
     @Autowired // 等同 @Resource @Inject
-    private Cat cat ;
-    private Dog dog ;
-    private Pig pig;
+    private Animals.Mammals.Cat cat ;
+    private Animals.Mammals.Dog dog ;
+    private Animals.Mammals.Pig pig;
     @Autowired
     private IAnimal[] iAnimals ;
     @Autowired
@@ -32,12 +30,12 @@ public class DemoAutowired implements CommandLineRunner {
     private Map<String,IAnimal> stringAnimalMap ;
 
     @Resource
-    public void setDog(Dog dog) {
+    public void setDog(Animals.Mammals.Dog dog) {
         this.dog = dog;
     }
 
     @Autowired
-    public void setPig(@Qualifier("pig") Pig pig) {
+    public void setPig(@Qualifier("pig") Animals.Mammals.Pig pig) {
         this.pig = pig;
     }
 
