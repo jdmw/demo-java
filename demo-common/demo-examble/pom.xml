@@ -9,6 +9,13 @@
     <version>0.0.1-SNAPSHOT</version>
     <artifactId>demo-examble</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.10</version>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>

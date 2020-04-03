@@ -54,7 +54,29 @@ public class ElasticSearchClientTest {
     public void prepareIndex() throws Exception {
         Song song = songs.get(0);
         IndexResponse indexResponse = client.prepareIndex(INDEX, TYPE, song.getId() + "").setSource(JSON.parseObject(JSON.toJSONString(song)), XContentType.JSON).get();
+        /**
+         * TCP protocol
+         * request: Elasticsearch
+         *     Token: ES
+         *     Message length: 150
+         *     Request ID: 5
+         *     Status flags: 0x00
+         *     Version: 6.1.1 (6010199)
+         *     Action:
+         *     Data
+         *
+         * response : Elasticsearch
+         *     Token: ES
+         *     Message length: 150
+         *     Request ID: 5
+         *     Status flags: 0x00
+         *     Version: 6.1.1 (6010199)
+         *     Action: 0x00
+         *     Data: 
+         */
         System.out.println(indexResponse.status());
+
+
 
         GetResponse getResponse = client.prepareGet(INDEX, TYPE, song.getId() + "").get();
         System.out.println(getResponse.getSource());

@@ -11,6 +11,9 @@ import com.jfinal.template.Engine;
 
 import jd.demo.jfinal.controller.GreetingController;
 
+/**
+ * ref: http://www.jfinal.com/doc/5-2
+ */
 public class DemoJFinalBoot extends JFinalConfig{
 
 	

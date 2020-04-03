@@ -2,8 +2,6 @@ package demo.basic.basictype
 
 fun defInteger() {
     var n: Int = 1 ;
-
-
 }
 
 fun testLazyjunction(b: Int): Int {
