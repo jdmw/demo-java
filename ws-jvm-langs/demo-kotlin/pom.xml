@@ -38,5 +38,21 @@
     <version>0.0.1-SNAPSHOT</version>
     <scope>compile</scope>
   </dependency>
+      <dependency>
+          <groupId>org.jetbrains.kotlin</groupId>
+          <artifactId>kotlin-stdlib-js</artifactId>
+          <version>RELEASE</version>
+      </dependency>
+      <dependency>
+          <groupId>org.jetbrains.kotlin</groupId>
+          <artifactId>kotlin-test-js</artifactId>
+          <version>RELEASE</version>
+      </dependency>
+      <dependency>
+          <groupId>org.jetbrains.kotlin</groupId>
+          <artifactId>kotlin-html-js</artifactId>
+          <version>RELEASE</version>
+      </dependency>
+
   </dependencies>
 </project>
