@@ -64,7 +64,7 @@ module | orgnation | decription
 thrift|apache | 跨语言序列化框架
 
 
-#### 7.6 ws-lib-gencode 代码生成
+#### 7.6 ws-lib-bytecode 字节码
 module | orgnation | decription
 ---|---|---
 lombok| | 使用javaagent自动生成getter、setter、toString()、equals()
@@ -75,6 +75,8 @@ lombok| | 使用javaagent自动生成getter、setter、toString()、equals()
 module | orgnation | decription
 ---|---|---
 httpcomponents |apache+spring | http client,http restTemplate
+netty | |
+
 
 #### 7.6 ws-lib-utils
 module | orgnation | decription
