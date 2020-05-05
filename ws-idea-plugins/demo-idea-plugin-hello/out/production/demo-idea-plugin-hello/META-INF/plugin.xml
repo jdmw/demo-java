@@ -1,0 +1,29 @@
+<idea-plugin>
+  <id>jd.demo.plugin.hello</id>
+  <name>name  </name>
+  <version>1.0</version>
+  <vendor email="jdmw@qq.com" url="http://www.demo.com">test</vendor>
+
+  <description>this is a demo ...................................... </description>
+
+  <actions>
+    <action id="demo-plugin-001" class="DemoPluginCodeGenerator" text="Show Class Info"
+            description="模拟getter getter等代码生成">
+      <add-to-group group-id="ToolsMenu" anchor="last"/>
+    </action>
+  </actions>
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="173.0"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+  </extensions>
+
+
+</idea-plugin>
