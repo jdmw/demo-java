@@ -1,14 +1,11 @@
-package jd.demo.se.net;
+package jd.demo.se.io.net;
 
 import jd.util.lang.concurrent.CcUt;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketAddress;
+import java.net.*;
 
 public class DemoSocket {
 
@@ -25,7 +22,9 @@ public class DemoSocket {
                 e.printStackTrace();
             }
         },false);
-        Socket socket = new Socket(InetAddress.getLocalHost(),port);
+        Socket socket = new Socket();
+        // throw BindException: socket.bind(new InetSocketAddress(InetAddress.getLoopbackAddress(),port));
+        socket.connect(new InetSocketAddress(serverSocket.getInetAddress(),port),1000);
         InetAddress inetAddress = socket.getInetAddress();
         InetAddress localAddress = socket.getLocalAddress();
         SocketAddress socketAddress = socket.getRemoteSocketAddress();

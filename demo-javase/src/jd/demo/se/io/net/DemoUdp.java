@@ -1,4 +1,4 @@
-package jd.demo.se.net;
+package jd.demo.se.io.net;
 
 import jd.util.lang.concurrent.CcUt;
 
@@ -7,7 +7,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
 
 public class DemoUdp {
 

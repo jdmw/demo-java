@@ -1,4 +1,4 @@
-package jd.demo.se.java9compare;
+package jd.demo.se.newfeature.java9compare;
 
 import java.io.File;
 import java.io.FileInputStream;

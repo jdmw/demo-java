@@ -1,4 +1,4 @@
-package jd.demo.se.net;
+package jd.demo.se.io.net;
 
 import java.io.*;
 import java.net.ServerSocket;

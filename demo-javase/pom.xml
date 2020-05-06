@@ -4,7 +4,27 @@
   <artifactId>demo-javase</artifactId>
   <packaging>pom</packaging>
   <version>0.0.1-SNAPSHOT</version>
-  
+
+
+  <dependencies>
+    <!--    <dependency>
+          <groupId>jd</groupId>
+          <artifactId>jd-util</artifactId>
+          <version>0.0.1-SNAPSHOT</version>
+        </dependency>-->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.5</version>
+    </dependency>
+    <dependency>
+      <groupId>jd.demo</groupId>
+      <artifactId>demo-common</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+
 
   <build>
     <sourceDirectory>src</sourceDirectory>
@@ -19,24 +39,4 @@
       </plugin>
     </plugins>
   </build>
-  <modules>
-  </modules>
-  <dependencies>
-<!--    <dependency>
-      <groupId>jd</groupId>
-      <artifactId>jd-util</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-    </dependency>-->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.5</version>
-    </dependency>
-    <dependency>
-    <groupId>jd.demo</groupId>
-    <artifactId>demo-common</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <scope>compile</scope>
-  </dependency>
-  </dependencies>
 </project>
