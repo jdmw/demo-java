@@ -3,6 +3,7 @@ package jd.demo.se.io.net;
 import jd.util.lang.concurrent.CcUt;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.*;
@@ -17,7 +18,15 @@ public class DemoSocket {
 
         CcUt.start(()->{
             try {
-                printGetter("server socket",serverSocket.accept());
+                Socket accept = serverSocket.accept();
+                printGetter("server socket", accept);
+                while(!accept.isClosed()){
+                    byte[] b = new byte[100];
+                    int len = accept.getInputStream().read(b);
+                    if(len > 0){
+                        System.out.println("server read:" + new String(b,0,len));
+                    }
+                }
             } catch (IOException|IllegalAccessException|InvocationTargetException e) {
                 e.printStackTrace();
             }
@@ -29,7 +38,11 @@ public class DemoSocket {
         InetAddress localAddress = socket.getLocalAddress();
         SocketAddress socketAddress = socket.getRemoteSocketAddress();
         printGetter("client socket",socket);
-
+        OutputStream outputStream = socket.getOutputStream();
+        outputStream.write("A".getBytes());
+        outputStream.write("B".getBytes());
+        outputStream.write("C".getBytes());
+        outputStream.flush();
         socket.close();
         serverSocket.close();
     }
