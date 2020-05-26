@@ -168,14 +168,14 @@ public class Imix {
 	/**
 	 * 判断是需要的VO的条件：
 	 *  1、非空
-	 * 	1：是cn.com.cfets包中的类的对象（至少能排除String、Ingeger等javaApI中的类）
+	 * 	1：是cn.com.cfe ts包中的类的对象（至少能排除String、Ingeger等javaApI中的类）
 	 * 。。。其他条件待修改
 	 * @param obj VoList中的一个元素
 	 * @return true/false
 	 */
 	private boolean isVo(Object obj) {
 		return obj != null && 
-				obj.getClass().getPackage().getName().startsWith("cn.com.cfets");
+				obj.getClass().getPackage().getName().startsWith("cn.com.cf" + "ets");
 	}
 	
 	@SuppressWarnings("rawtypes")

@@ -5,15 +5,7 @@
  */
 package jd.demo.se.ui.swing;
 
-/**
- *
- * @author jdmw
- */
-/** 
-* @author ：陶伟基 ，微博：http://weibo.com/taoandtao 
-* @date ：2012/12/10 
-* @place：广州大学华软软件学院 
-*/  
+
 import javax.swing.GroupLayout;  
 import javax.swing.GroupLayout.Alignment;  
 import javax.swing.JButton;  

@@ -7,22 +7,22 @@ import java.net.Socket;
 public class TestServer {
 
 	public static void main(String[] args) throws IOException {
-		ServerSocket server = new ServerSocket(82);
+		ServerSocket server = new ServerSocket(8081);
 		while(true){
-			Socket socket = server.accept();
-			
-			InputStream is = socket.getInputStream();
-			
-			StringBuffer sb = new StringBuffer();
-			int i ;
-			while((i=is.read()) != -1){
-				sb.append((char)i);
+			try(Socket socket = server.accept()){
+				InputStream is = socket.getInputStream();
+				StringBuffer sb = new StringBuffer();
+				int i ;
+				while((i=is.read()) != -1){
+					sb.append((char)i);
+				}
+				System.out.println("msg from client:"+sb+"|end");
+				socket.getOutputStream().write("response".getBytes());
+			}catch (Exception e){
+				e.printStackTrace();
 			}
-			System.out.println("msg from client:"+sb);
-			socket.getOutputStream().write("response".getBytes());
-			socket.close();
-			server.close();
 		}
+		//server.close();
 	}
 	public void client(){
 

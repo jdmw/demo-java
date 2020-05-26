@@ -12,7 +12,7 @@ public class DemoSocket {
 
 
     public static void main(String[] args) throws IOException, InvocationTargetException, IllegalAccessException {
-        int port = 8888 ;
+        int port = 8080 ;
         ServerSocket serverSocket = new ServerSocket(port);
         printGetter("ServerSocket",serverSocket);
 
