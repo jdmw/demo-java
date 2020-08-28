@@ -28,7 +28,7 @@ class Persion {
 
 @SpringBootApplication
 //@EnableAutoConfiguration 
-@PropertySource(value="classpath:cfg/cfg/demo_config.properties",encoding="utf-8")
+@PropertySource(value="classpath:cfg/demo_config.properties",encoding="utf-8")
 public class DemoConfig {
 
 	

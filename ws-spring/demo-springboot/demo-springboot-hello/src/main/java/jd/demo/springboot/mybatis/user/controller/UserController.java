@@ -1,24 +1,19 @@
+/*
 package jd.demo.springboot.mybatis.user.controller;
 
 
+import com.baomidou.mybatisplus.plugins.Page;
+import jd.demo.springboot.mybatis.CommonException;
+import jd.demo.springboot.mybatis.user.entity.User;
+import jd.demo.springboot.mybatis.user.service.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.baomidou.mybatisplus.plugins.Page;
-
-import jd.demo.springboot.mybatis.user.entity.User;
-import jd.demo.springboot.mybatis.user.service.IUserService;
-
+*/
 /**
  * <p>
  *  前端控制器
@@ -26,12 +21,15 @@ import jd.demo.springboot.mybatis.user.service.IUserService;
  *
  * @author hubery
  * @since 2018-08-17
- */
+ *//*
+
+*/
 /**
  * 用户控制层 简单演示增删改查及分页
  * @author oKong
  *
- */
+ *//*
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -42,7 +40,7 @@ public class UserController {
 	@PostMapping("add")
     //正常业务时， 需要在user类里面进行事务控制，控制层一般不进行业务控制的。
 	//@Transactional(rollbackFor = Exception.class)
-	public Map<String,String> addUser(@Valid @RequestBody UserReq userReq){
+	public Map<String,String> addUser(@Valid @RequestBody User userReq){
 		
 		User user = new User();
 		user.setCode(userReq.getCode());
@@ -59,7 +57,7 @@ public class UserController {
 	}
 	
 	@PostMapping("update")
-	public Map<String,String> updateUser(@Valid @RequestBody UserReq userReq){
+	public Map<String,String> updateUser(@Valid @RequestBody User userReq){
 		
 		if(userReq.getId() == null || "".equals(userReq.getId())) {
 			throw new CommonException("0000", "更新时ID不能为空");
@@ -105,4 +103,4 @@ public class UserController {
 		result.put("data", userService.selectPage(page));
 		return result;
 	}		
-}
+}*/
