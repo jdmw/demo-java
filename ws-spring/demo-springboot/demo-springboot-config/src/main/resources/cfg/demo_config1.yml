@@ -1,0 +1,28 @@
+sqls:
+  - set names utf8mb4;
+
+
+acme:
+  name: test
+  list:
+    - name: my name
+      description: my description
+    - name: another name
+      description: another description
+  map:
+    "[/k1-a]" : # key: /k1-a
+      name: 1
+    /k2-b : # key: k2-b
+      name: 2
+    k3-c :
+      name: 3
+
+  mmap:
+    scene1:
+      type1:
+        name: 1-1
+      type2:
+        name: 1-2
+    scene2:
+      type3:
+        name: 1-2

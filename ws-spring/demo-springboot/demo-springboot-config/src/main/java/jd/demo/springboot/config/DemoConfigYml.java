@@ -1,5 +1,5 @@
 
-package jd.demo.springboot.cfg;
+package jd.demo.springboot.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @SpringBootApplication
 //@EnableAutoConfiguration 
-@PropertySource(value="classpath:cfg/demo_config_yml.yml",encoding="utf-8")
+@PropertySource(value="classpath:cfg/demo_config1.yml",encoding="utf-8")
 public class DemoConfigYml {
 
 	

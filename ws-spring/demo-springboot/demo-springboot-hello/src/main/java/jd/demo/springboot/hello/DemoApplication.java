@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		// banner off
+		// new SpringApplicationBuilder().bannerMode(Banner.Mode.OFF).sources(DemoApplication.class).run( args);
+		SpringApplication.run(DemoApplication.class,args);
 	}
 }
