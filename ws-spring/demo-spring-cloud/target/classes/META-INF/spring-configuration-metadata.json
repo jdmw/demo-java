@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "name": "person",
+      "type": "jd.demo.springboot.cfg.Persion",
+      "sourceType": "jd.demo.springboot.cfg.Persion"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}

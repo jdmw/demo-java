@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class DemoMultipartFormEntity {
 
-    private static final File FILE= new File("/Users/huangxia/Downloads/docx/2.docx") ;
+    private static final File FILE= new File("/Users/jdmw/Downloads/docx/2.docx") ;
     private static final String COMPANY_ID = "4" ;
 
     public static String postMultipartForm(String url,Map<String,Object> parameter,ContentType contentType, String fileName) throws IOException{

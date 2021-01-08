@@ -5,7 +5,7 @@ import jd.util.io.IOUt;
 import java.io.File;
 
 /**
- * Created by huangxia on 2008/9/30.
+ * Created by jdmw on 2008/9/30.
  */
 public class DiyJdEngineStorage {
 

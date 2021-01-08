@@ -12,10 +12,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Created by huangxia on 2019/12/16.
+ * Created by jdmw on 2019/12/16.
  */
 @Configuration
-@ComponentScan(basePackages = "jd.demo.spring.framework.core.ioc")
+@ComponentScan(basePackages = "jd.demo.spring.framework.core")
 @SpringBootConfiguration
 @EnableAutoConfiguration
 @ToString

@@ -1,7 +1,7 @@
 package jd.demo.example.common.animal;
 
 /**
- * Created by huangxia on 2019/12/16.
+ * Created by jdmw on 2019/12/16.
  */
 public class Cat implements Animal {
     @Override

@@ -76,7 +76,7 @@ public class MagicNumberMatcher {
 
 
     public static void main(String[] args) throws IOException {
-        File file = new File("/Users/huangxia/Desktop/EMPLOYEE.XLSX");
+        File file = new File("/Users/jdmw/Desktop/EMPLOYEE.XLSX");
         System.out.print(matchByFilenameAndMagicNumber(file.getName(), IOUtils.toByteArray(new FileInputStream(file))));
     }
 

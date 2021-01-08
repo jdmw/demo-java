@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 /**
- * Created by huangxia on 2019/12/16.
+ * Created by jdmw on 2019/12/16.
  */
 @Configuration
 public class Beans {

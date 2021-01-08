@@ -4,7 +4,7 @@ package jd.demo.springboot.mybatis;
 import lombok.NonNull;
 
 /**
- * Created by huangxia on 2020/6/11.
+ * Created by jdmw on 2020/6/11.
  */
 public class CommonException extends RuntimeException{
     private String code ;
