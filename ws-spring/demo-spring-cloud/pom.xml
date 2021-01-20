@@ -12,6 +12,7 @@
     <artifactId>demo-spring-cloud</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>demo-spring-cloud</name>
+    <packaging>pom</packaging>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -20,6 +21,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>jd.demo</groupId>
+            <artifactId>demo-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
@@ -51,6 +58,12 @@
         </dependencies>
     </dependencyManagement>
 
+    <modules>
+        <module>netflix-eureka-server</module>
+        <module>netflix-eureka-client-common</module>
+        <module>netflix-eureka-clientA</module>
+        <module>netflix-eureka-clientB</module>
+    </modules>
     <build>
         <plugins>
             <plugin>

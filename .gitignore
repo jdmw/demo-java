@@ -37,6 +37,12 @@ Thumbs.db
 /out/
 /bin
 /.idea/
+
+# mvn
+/.mvn/
+mvnw
+mvnw.cmd
+
 dependency-reduced-pom.xml
 
 # Eclipse Project Files
