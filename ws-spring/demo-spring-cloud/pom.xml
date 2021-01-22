@@ -63,6 +63,7 @@
         <module>netflix-eureka-client-common</module>
         <module>netflix-eureka-clientA</module>
         <module>netflix-eureka-clientB</module>
+        <module>diy-ms-discovery</module>
     </modules>
     <build>
         <plugins>

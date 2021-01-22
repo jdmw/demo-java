@@ -12,7 +12,6 @@
 | demo-javase        | javase Demo                       |
 | demo-javase12      | javase 12 Demo                    |
 | demo-javaee        | javaee Demo                       |
-| demo-jvm           | jvm 探索                          |
 
 ### 2. ws-ds 分布式系统（分布式缓存、MQ、原理）
 
@@ -67,9 +66,12 @@
 
 #### 7.5 ws-lib-serialization 序列化（avro、protobuf、hessian、thrift）
 
-| module | orgnation | decription       |
-| ------ | --------- | ---------------- |
-| thrift | apache    | 跨语言序列化框架 |
+| module | orgnation | decription                         |
+| ------ | --------- | ---------------------------------- |
+| thrift | apache    | 跨语言序列化框架                   |
+| json   |           | JSON 序列化 （ jackson，fastjson） |
+
+待添加： xml 等
 
 #### 7.6 ws-lib-bytecode 字节码
 
@@ -90,13 +92,15 @@
 | ------------ | --------- | ----------------- |
 | common-utils | apache    | 使用最广泛的 util |
 
+### 8 ws-jvm jvm 探索
+
 ### 9 ws-jvm-langs jvm 平台衍生语言
 
 clojure
 
 kotlin
 
-### 8. ws-business 商用产品
+### 10. ws-business 商用产品
 
 | module                                                            | orgnation | decription |
 | ----------------------------------------------------------------- | --------- | ---------- |
