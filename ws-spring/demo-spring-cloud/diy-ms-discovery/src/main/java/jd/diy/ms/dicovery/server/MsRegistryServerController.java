@@ -47,14 +47,26 @@ public class MsRegistryServerController {
             instanceLeaseMap = new CopyOnWriteHashMap<>();
             registryMap.put(appName,instanceLeaseMap);
         }
+        String instanceId = getInstanceId(instance);
+        Lease<InstanceInfo> existedLease= instanceLeaseMap.get(instanceId);
+        if(existedLease != null && instance.getLastDirtyTimestamp() != null && instance.getLastDirtyTimestamp() > 0 &&
+                existedLease.getHolder().getLastDirtyTimestamp() > instance.getLastDirtyTimestamp()){
+            log.warn("There is an existing lease and the existing lease\'s dirty timestamp {} is greater than the one that is being registered {}",existedLease,instance);
+            // TODO not sure
+            existedLease.renew();
+            existedLease.getHolder().setLastUpdatedTimestamp();
+            return;
+        }
+        instance.setLastUpdatedTimestamp();
         Lease<InstanceInfo> lease = new Lease<>(instance,Lease.DEFAULT_DURATION_IN_SECS);
         instance.setLeaseInfo(LeaseInfo.Builder.newBuilder()
-                .setEvictionTimestamp(lease.getEvictionTimestamp())
-                .setRegistrationTimestamp(lease.getRegistrationTimestamp())
-                //.setRenewalIntervalInSecs(0)
-                .setServiceUpTimestamp(lease.getServiceUpTimestamp()).build());
-        // TODO
-        instanceLeaseMap.put(getInstanceId(instance),lease);
+                .setRegistrationTimestamp(instance.getLastUpdatedTimestamp())
+                .setRenewalTimestamp(instance.getLastUpdatedTimestamp())
+                .setServiceUpTimestamp(instance.getLastUpdatedTimestamp()).build());
+
+        instance.setActionType(InstanceInfo.ActionType.ADDED);
+
+        instanceLeaseMap.put(instanceId,lease);
         counter.countUp();
     }
 
@@ -82,7 +94,7 @@ public class MsRegistryServerController {
             return;
         }else{
             synchronized (registryMap){
-                if("UP".equals(instanceInfoLease)){
+                if("UP".equals(status)){
                     instanceInfoLease.renew();
                     instanceInfoLease.getHolder().setLastUpdatedTimestamp();
                     instanceInfoLease.getHolder().setLastDirtyTimestamp(lastDirtyTimestamp);
