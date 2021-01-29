@@ -1,0 +1,21 @@
+server:
+  port: 8761
+
+
+# add into /etc/hosts
+#  127.0.0.1 peer1
+#  127.0.0.1 peer2
+#  127.0.0.1 peer3
+# run : -Dspring.profiles.active=peer1
+
+eureka:
+  instance:
+    hostname: peer1
+  client:
+    registerWithEureka: true
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://peer1:8761/eureka/,http://peer2:8762/eureka/,http://peer2:8763/eureka/
+  server:
+    enable-self-preservation: false             #关闭自我保护模式
+    eviction-interval-timer-in-ms: 3000         #清理服务间隔3s，默认60*10000
