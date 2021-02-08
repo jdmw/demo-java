@@ -1,16 +1,12 @@
 package jd.demo.se.io.nio;
 
-import static jd.demo.se.io.nio.NioServer.* ;
 import jd.util.io.IOUt;
 import jd.util.lang.Console;
 import jd.util.lang.concurrent.CcUt;
-import org.omg.CORBA.TIMEOUT;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.InetSocketAddress;
-import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
@@ -20,7 +16,9 @@ import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
+
+import static jd.demo.se.io.nio.NioServer.PORT;
+import static jd.demo.se.io.nio.NioServer.TIMEOUT;
 
 /**
  * reference: https://www.ibm.com/developerworks/java/tutorials/j-nio/j-nio-pdf.pdf
@@ -31,7 +29,7 @@ class NioServer {
     // 缓冲区大小
     private static final int BUFFER_SIZE = 1024;
     // 超时时间，单位毫秒
-    public static final int TIMEOUT = 3000;
+    public static final int TIMEOUT = 5000_000;
 
     private static Selector register(int ...ports) throws IOException {
         // Create a new selector
@@ -65,18 +63,24 @@ class NioServer {
                                 // Accept the new connection
                                 ServerSocketChannel ssc = (ServerSocketChannel) key.channel();
                                 SocketChannel sc = ssc.accept();
+                                if(sc == null){
+                                    continue;
+                                }
                                 sc.configureBlocking(false);
 
                                 // Add the new connection to the selector
                                 SelectionKey newKey = sc.register(selector, SelectionKey.OP_READ);
-                                //iterator.remove();
-                                System.out.println("Got connection from " + sc);
+                                System.out.println("Got connection from " + newKey);
                             } else if (key.isReadable()) {
                                 // 获得与客户端通信的信道
                                 SocketChannel clientChannel = (SocketChannel) key.channel();
                                 // 得到并清空缓冲区
                                 ByteBuffer buffer = (ByteBuffer) key.attachment();
-                                buffer.clear();
+                                if(buffer == null){
+                                    buffer = ByteBuffer.allocate(1024);
+                                }else{
+                                    buffer.clear();
+                                }
                                 // 读取信息获得读取的字节数
                                 long bytesRead = clientChannel.read(buffer);
                                 if (bytesRead == -1) {
@@ -109,7 +113,7 @@ class NioServer {
     protected static void handlerInput(SocketChannel channel,ByteBuffer buffer)  {
         String receivedString = Charset.forName("UTF-8").decode(buffer).toString();
         System.out.printf("from %s receive: %s\n",channel.socket().getRemoteSocketAddress() ,receivedString);
-        String sendString = "echo " + receivedString + "@" + new Date().toString();
+        String sendString = "echo " + receivedString + " @ " + new Date().toString();
         try {
             IOUt.write(channel,sendString);
         } catch (IOException e) {
@@ -151,7 +155,7 @@ class NIOClient implements Runnable{
 
             if(socketChannel.connect(new InetSocketAddress(PORT))){
                 socketChannel.register(selector,SelectionKey.OP_READ);
-                IOUt.write(socketChannel,"QUERY TIME ORDER");
+                IOUt.write(socketChannel,"hello");
                 Console.tpln("[%t] write to server: Hello on connect");
             }else {
                 socketChannel.register(selector,SelectionKey.OP_CONNECT);
@@ -167,24 +171,39 @@ class NIOClient implements Runnable{
                         try{
                             SocketChannel channel = (SocketChannel) key.channel();
                             if(key.isConnectable()){
+                                channel.configureBlocking(false);
+                                channel.register(selector,SelectionKey.OP_READ);
                                 if(channel.finishConnect()){
-                                    IOUt.write(socketChannel,"QUERY TIME ORDER");
+                                    doWrite(socketChannel,SelectionKey.OP_CONNECT);
                                     Console.tpln("[%t] write QUERY TIME ORDER order to the server when finished connection");
                                 }else{
                                     throw new SocketChannelCollectionFailException(PORT);
                                 }
-                            }
-                            if(key.isReadable()){
+                            }else if(key.isReadable()){
                                 int readBytes = 0 ;
                                 ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-                                if((readBytes = channel.read(byteBuffer)) >= 0){
-                                    byteBuffer.flip();
-                                    handlerInput(channel,byteBuffer);
-                                } else if (readBytes < 0 ){
-                                    key.cancel();
-                                    channel.close();
-                                    stop = true ;
+                                try{
+                                    if((readBytes = channel.read(byteBuffer)) >= 0){
+                                        byteBuffer.flip();
+                                        ByteArrayOutputStream baos = new ByteArrayOutputStream(1024);
+                                        try{
+                                            handlerInput(channel,byteBuffer,baos);
+                                        }finally {
+                                            byteBuffer.flip();
+                                        }
+
+                                    } else if (readBytes < 0 ){
+                                        key.cancel();
+                                        channel.close();
+                                        stop = true ;
+                                    }
+                                }finally {
+                                    byteBuffer.clear();
                                 }
+                            }else if(key.isWritable()){
+                                key.interestOps(key.interestOps() * ~SelectionKey.OP_WRITE);
+                                SocketChannel sc = (SocketChannel) key.channel();
+                                doWrite(socketChannel,SelectionKey.OP_WRITE);
                             }
                         }catch (Exception e){
                             e.printStackTrace();
@@ -195,16 +214,17 @@ class NIOClient implements Runnable{
                         }
                     }
                 }
+                selector.selectedKeys().clear();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
-
-    protected static void handlerInput(SocketChannel channel,ByteBuffer byteBuffer) throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream(1024);
-        byteBuffer.flip();
+    private static void doWrite(SocketChannel socketChannel,int opType) throws IOException {
+        IOUt.write(socketChannel,"QUERY TIME ORDER");
+    }
+    protected static void handlerInput(SocketChannel channel,ByteBuffer byteBuffer,ByteArrayOutputStream baos) throws IOException {
         if(byteBuffer.remaining() > 0){
             byte[] bytes = new byte[byteBuffer.remaining()];
             byteBuffer.get(bytes);
@@ -215,8 +235,5 @@ class NIOClient implements Runnable{
         IOUt.write(channel,"Hello");
         Console.tpln("[%t]write to server: Hello after read");
     }
-
-}
-public class DemoServerSocketChannel {
 
 }
