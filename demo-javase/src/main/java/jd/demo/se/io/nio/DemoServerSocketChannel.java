@@ -100,6 +100,8 @@ class NioServer {
                                 SocketChannel sc = (SocketChannel) key.channel();
 
                                 //iterator.remove();
+                            }else if(key.isWritable()){
+
                             }
                         }catch (Exception e){
                             IOUt.cancel(key);

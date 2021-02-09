@@ -7,7 +7,7 @@ public abstract class TimeServer implements Runnable{
 
 	public final static int DEFAULT_PORT = 81 ;
 	
-	public final static String QUERY_CMD = "QUERY TIME" ;
+	public final static String QUERY_CMD = "QUERY-TIME" ;
 	
 	public static String response(byte[] bs){
 		try {
@@ -22,3 +22,14 @@ public abstract class TimeServer implements Runnable{
 		return "Bad Command" ;
 	}
 }
+
+
+/*
+class TimeClient {
+	public static void main(String[] args) throws IOException {
+		Socket socket = new Socket("127.0.0.1", TimeServer.DEFAULT_PORT);
+		socket.getOutputStream().write(QUERY_CMD.getBytes());
+		socket.shutdownOutput();
+		IOUt.toString(socket.getInputStream());
+	}
+}*/

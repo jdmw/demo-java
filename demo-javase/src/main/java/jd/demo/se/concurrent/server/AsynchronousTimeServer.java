@@ -47,7 +47,7 @@ public class AsynchronousTimeServer extends TimeServer {
 		
 		
 		try {
-			latch.wait();
+			latch.await();
 			//Thread.currentThread().wait();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -68,7 +68,7 @@ public class AsynchronousTimeServer extends TimeServer {
 			byte[] rbs = new byte[rbuf.remaining()];
 			rbuf.get(rbs);
 			
-			String response = TimeServer.response(rbs);
+			String response = response(rbs);
 			byte[] wbs = response.getBytes();
 			ByteBuffer wbuf = ByteBuffer.allocate(wbs.length);
 			wbuf.put(wbs);
