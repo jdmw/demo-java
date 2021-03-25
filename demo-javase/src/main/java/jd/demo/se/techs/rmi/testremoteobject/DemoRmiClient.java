@@ -20,7 +20,7 @@ public class DemoRmiClient {
 			System.setSecurityManager(new SecurityManager());
 		}
 		
-		Compute rs = (Compute)LocateRegistry.getRegistry(DemoRmiServer.PORT).lookup(TestRemoteObject.NAME);
+		Compute rs = (Compute)LocateRegistry.getRegistry(DemoRmiServer.PORT).lookup(jd.demo.se.techs.rmi.testremoteobject.TestRemoteObject.NAME);
 		/*Properties result = rs.executeTask(()->System.getProperties());
 		result.list(System.out);*/
 		rs.inc();

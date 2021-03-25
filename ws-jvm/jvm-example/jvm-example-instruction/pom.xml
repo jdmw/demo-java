@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>jd.jvmexample</groupId>
-    <artifactId>jd-jvmexample-instruction</artifactId>
+    <artifactId>jvm-example-instruction</artifactId>
 
 
 </project>
