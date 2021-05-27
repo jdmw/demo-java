@@ -2,6 +2,7 @@ package jd.demo.algorithm.datastructure.tree;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,11 @@ public class Tree<T>{
         this.root = new TreeNode(null,rootContent) ;
     }
 
+    public Tree() {
+        this.root = new TreeNode(null,null) ;
+    }
+
+    @Getter
     public final class TreeNode<T>{
         final TreeNode<T> parent ;
         T  content ;
