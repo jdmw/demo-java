@@ -1,14 +1,23 @@
 package jd.demo.se.io.net;
 
-import java.io.IOException;
-import java.net.*;
-
 import jd.util.io.IOUt;
 import jd.util.lang.Console;
 import jd.util.lang.concurrent.CcUt;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketAddress;
+import java.util.UUID;
+
 public class DemoInetAddress{
    public static void main(String args[]) throws IOException {
+	   while (true){
+		   System.out.println("aob.c" + InetAddress.getByName(UUID.randomUUID().toString().replaceAll("-","") + ".com"));
+	   }
+   }
+   public static void main1(String args[]) throws IOException {
       InetAddress remAddr = null ;
       InetAddress locAddr = null ;
 
