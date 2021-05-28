@@ -4,9 +4,6 @@
 	<groupId> jd.demo</groupId>
 	<artifactId>demo-common</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<modules>
-		<module>demo-examble</module>
-    </modules>
 	<packaging>pom</packaging>
 
 	<dependencies>
