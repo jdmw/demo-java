@@ -6,6 +6,8 @@ import lombok.NonNull;
 import java.util.Stack;
 import java.util.function.Consumer;
 
+import static jd.demo.algorithm.datastructure.tree.AVLTree.Status.RIGHT_DOWN;
+
 /**
  * Created by jdmw on 2008/6/1.
  */
@@ -81,15 +83,54 @@ public class AVLTree<T extends Comparable> {
         }
     }
 
-    private enum Direction {UP,DOWN};
+    private enum Status {LEFT_DOWN,LEFT_UP,RIGHT_DOWN,RIGHT_UP};
+
     public void forEach(Consumer<T> consumer){
         if(root.key == null){
             return;
         }
+        Node node = root ;
         Stack<Node> stack = new Stack<>();
-        Direction direction = Direction.DOWN ;
+        Status status = Status.LEFT_DOWN ;
+        Status previousStatus = null,nextStatus = status ;
+        while (node != null){
+            previousStatus = status ;
+            switch (status){
+                case LEFT_DOWN:
+                case RIGHT_DOWN:{
+                    if(node.left != null){
+                        node = node.left;
+                        nextStatus = Status.LEFT_DOWN;
+                    }else if(node.right != null){
+                        node = node.right ;
+                        nextStatus = RIGHT_DOWN;
+                    }else{
+                        consumer.accept(node.key);
+                        node = node.parent ;
+                        nextStatus = status == Status.LEFT_DOWN ? Status.LEFT_UP : Status.RIGHT_UP; // diff
+                    }
+                    break;
+                }
+                case LEFT_UP:{
+                    // TODO:
+                    consumer.accept(node.key);
+                    if(node.right != null){
+                        node = node.right ;
+                        nextStatus = RIGHT_DOWN;
+                    }else{
+                        node = node.parent ;
+                    }
+                    break;
+                }
+                case RIGHT_UP:{
+                    node = node.parent ;
+                    break;
+                }
+            }
+            status = nextStatus ;
+        }
 
-        // find minimum
+        /*// find minimum
         Node node = root ;
         while (node.left != null ){
             node = node.left;
@@ -100,7 +141,7 @@ public class AVLTree<T extends Comparable> {
         consumer.accept(node.key);
         if(node.right != null){
             // TODO
-        }
+        }*/
     }
 
     public static boolean lt(@NonNull Comparable a,Comparable b){
@@ -108,11 +149,17 @@ public class AVLTree<T extends Comparable> {
     }
     public static void main(String[] args){
         AVLTree<Comparable> tree = new AVLTree<>();
+       /* int[] nums = RandomUt.randomIntArray(1, 1000, 100);
+        for (int num : nums) {
+            tree.add(num);
+        }*/
+
         tree.add(5);
         tree.add(1);
         tree.add(2);
         tree.add(4);
         tree.add(3);
 
+        tree.forEach(System.out::println);
     }
 }
