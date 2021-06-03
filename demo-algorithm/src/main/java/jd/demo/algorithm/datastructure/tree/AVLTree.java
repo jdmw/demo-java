@@ -42,7 +42,7 @@ public class AVLTree<T extends Comparable> extends BinarySortTree<T> {
     }
 
     public static void main(String[] args){
-        BinarySortTree<Comparable> tree = new BinarySortTree<>();
+        AVLTree<Comparable> tree = new AVLTree<>();
         tree.add(5);
         tree.add(1);
         tree.add(2);
